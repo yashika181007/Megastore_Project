@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Update categorys</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .success-box {
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+      color: #3c763d;
+    }
+    .error-box {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    .message-box {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <%- include('./header.ejs') %>
+    <%- include('./sidebar.ejs') %>
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Update categorys</li>
+            </ol>
+          </nav>
+        </div>
+        <div>
+        </div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div id="category" class="message-box"></div>
+                  <h5 class="card-title">Update category</h5>
+                  <form class="row g-3" action="/updatecategory?categoryId=<%= category.id %>" id="updatecategory"
+                    method="POST">
+                    <% category.forEach(categoryItem=> { %>
+                      <input type="hidden" name="id" value="<%= categoryItem.id %>">
+                      <div class="col-12">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="inputName" name="Name"
+                          value="<%= categoryItem.Name %>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="inputDescription" name="Description"
+                          value="<%= categoryItem.Description %>"><%= categoryItem.Description %></textarea>
+                      </div>
+                      <div class="col-12">
+                        <label for="inputPageTitle" class="form-label">Page Title</label>
+                        <input type="text" class="form-control" id="inputPageTitle" name="PageTitle"
+                          value="<%= categoryItem.PageTitle %>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputMetaKeywords" class="form-label">Meta Keywords</label>
+                        <input type="text" class="form-control" id="inputMetaKeywords" name="MetaKeywords"
+                          value="<%= categoryItem.MetaKeywords %>">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputMetaDescription" class="form-label">Meta Description</label>
+                        <textarea class="form-control" id="inputMetaDescription" name="MetaDescription"
+                          value="<%= categoryItem.MetaDescription %>"><%= categoryItem.MetaDescription %></textarea>
+                      </div>
+                      <div class="col-12">
+                        <label for="stores" class="form-label">Stores</label>
+                        <% stores.forEach((store, index)=> { %>
+                          <div class="form-check">
+                            <input class="form-check-input" id="stores" type="checkbox" name="storeId[]"
+                              value="<%= store.id %>" <% if (categoryItem.storeId.split(',').includes(String(store.id)))
+                              { %> checked <% } %>>
+                              <label class="form-check-label">
+                                <%= store.store_name %>
+                              </label>
+                          </div>
+                          <% }); %>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                      </div>
+                      <% }); %>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main><!-- End #main -->
+      <!-- ======= Footer ======= -->
+      <%- include('./footer.ejs') %>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+        <!-- Vendor JS Files -->
+        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/vendor/chart.js/chart.umd.js"></script>
+        <script src="assets/vendor/echarts/echarts.min.js"></script>
+        <script src="assets/vendor/quill/quill.min.js"></script>
+        <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+        <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+        <script src="assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="assets/js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function () {
+            $('#updatecategory').submit(function (event) {
+              event.preventDefault();
+              $.ajax({
+                type: 'POST',
+                url: '/updatecategory',
+                data: $(this).serialize(),
+                success: function (response) {
+                  $('#category').removeClass('error-box').addClass('success-box').text(response.message);
+                  setTimeout(function () {
+                    window.location.href = '/showcategory';
+                  }, 2000);
+                },
+                error: function (xhr, status, error) {
+                  $('#category').removeClass('success-box').addClass('error-box').text(xhr.responseJSON.error);
+                }
+              });
+            });
+          });
+        </script>
+</body>
+</html>

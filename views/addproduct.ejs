@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Add Product</title>
+  <meta content="" name="Description">
+  <meta content="" name="keywords">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i"
+    rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .success-box {
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+      color: #3c763d;
+    }
+
+    .error-box {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+
+    .message-box {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    #drop-area {
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    #gallery img {
+      width: 100px;
+      max-width: 100px;
+      max-height: 100px;
+      margin: 30px;
+    }
+
+    .image-container {
+      text-align: center;
+    }
+
+    .image-container img {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('./header.ejs') %>
+    <%- include('./sidebar.ejs') %>
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Add Product</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Add Product</li>
+            </ol>
+          </nav>
+        </div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div id="product-message" class="message-box"></div>
+                  <h5 class="card-title">Add Product</h5>
+                  <form class="row g-3 needs-validation" novalidate action="/addproduct" id="product-form" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="col-12">
+                      <label for="stores" class="form-label">Stores:</label>
+                      <% stores.forEach((store, index)=> { %>
+                        <div class="form-check">
+                          <input class="form-check-input store-checkbox" type="checkbox" name="storeId[]"
+                            value="<%= store.id %>" id="store<%= index %>" required>
+                          <label class="form-check-label" for="store<%= index %>">
+                            <%= store.store_name %>
+                          </label>
+                        </div>
+                        <% }); %>
+                    </div>
+                    <div class="col-12">
+                      <label for="categories" class="form-label">Categories:</label>
+                      <div id="categories"></div>
+                    </div>
+                    <div class="col-12">
+                      <label for="subcategories" class="form-label">Sub Categories:</label>
+                      <div id="subcategories"></div>
+                    </div>
+                    <div class="col-12">
+                      <label for="subSubcategories" class="form-label">Sub-SubCategories:</label>
+                      <div id="subSubcategories"></div>
+                    </div>
+                    <div class="col-12">
+                      <label for="ProductTitle" class="form-label">Product Title</label>
+                      <input type="text" class="form-control" id="ProductTitle" name="ProductTitle" required>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid product title.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="Description" class="form-label">Description</label>
+                      <textarea class="form-control" id="Description" name="Description" required></textarea>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid description.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="Price" class="form-label">Price</label>
+                      <input type="text" class="form-control" id="Price" name="Price" required>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid price.
+                      </div>
+                    </div>
+                    <div id="drop-area">
+                      <p>Drag & Drop your images here</p>
+                      <input type="file" id="fileElem" name="images" multiple required>
+                      <div id="gallery"></div>
+                    </div>
+                    
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <%- include('./footer.ejs') %>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+        <!-- Vendor JS Files -->
+        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/vendor/chart.js/chart.umd.js"></script>
+        <script src="assets/vendor/echarts/echarts.min.js"></script>
+        <script src="assets/vendor/quill/quill.min.js"></script>
+        <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+        <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+        <script src="assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="assets/js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const storeCheckboxes = document.querySelectorAll('.store-checkbox');
+        
+            storeCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener('change', function () {
+                const selectedStoreIds = Array.from(storeCheckboxes)
+                                              .filter(cb => cb.checked)
+                                              .map(cb => cb.value);
+        
+                console.log('Selected Store IDs:', selectedStoreIds);
+        
+                if (selectedStoreIds.length > 0) {
+                  $.ajax({
+                    type: 'GET',
+                    url: '/addproduct',
+                    data: { storeIds: selectedStoreIds },
+                    success: function (response) {
+                      console.log('Response from server:', response);
+                      updateCategories(response.categories);
+                      updateSubCategories(response.subcategories);
+                      updatesubSubCategories(response.subSubcategories);
+                    },
+                    error: function (xhr, status, error) {
+                      console.error('Error sending request:', error);
+                    }
+                  });
+                }
+              });
+            });
+          });
+        
+          function updateCategories(categories) {
+            const categoriesDiv = document.querySelector('#categories');
+            categoriesDiv.innerHTML = '';
+            categories.forEach((category, index) => {
+              const div = createCheckboxElement(category.id, category.Name, 'catId[]', `category${index}`);
+              categoriesDiv.appendChild(div);
+            });
+          }
+        
+          function updateSubCategories(subcategories) {
+            const subcategoriesDiv = document.querySelector('#subcategories');
+            subcategoriesDiv.innerHTML = '';
+            subcategories.forEach((subcategory, index) => {
+              const div = createCheckboxElement(subcategory.id, subcategory.SubCatName, 'subcatId[]', `subcategory${index}`);
+              subcategoriesDiv.appendChild(div);
+            });
+          }
+        
+          function updatesubSubCategories(subSubcategories) {
+            const subSubcategoriesDiv = document.querySelector('#subSubcategories');
+            subSubcategoriesDiv.innerHTML = '';
+            subSubcategories.forEach((subSubcategory, index) => {
+              const div = createCheckboxElement(subSubcategory.id, subSubcategory.Sub_SubCatName, 'sub_subcatId[]', `subSubcategory${index}`, true);
+              subSubcategoriesDiv.appendChild(div);
+            });
+          }
+        
+          function createCheckboxElement(id, label, name, elementId, isRequired = false) {
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = name;
+            input.value = id;
+            input.id = elementId;
+            if (isRequired) input.required = true;
+        
+            const labelElement = document.createElement('label');
+            labelElement.htmlFor = elementId;
+            labelElement.textContent = label;
+        
+            const div = document.createElement('div');
+            div.className = 'form-check';
+            div.appendChild(input);
+            div.appendChild(labelElement);
+        
+            return div;
+          }
+        
+          let dropArea = document.getElementById('drop-area');
+let fileElem = document.getElementById('fileElem');
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, preventDefaults, false);
+});
+
+['dragenter', 'dragover'].forEach(eventName => {
+  dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), true);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
+});
+
+dropArea.addEventListener('drop', handleDrop, false);
+fileElem.addEventListener('change', handleChange, false);
+
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function handleDrop(e) {
+  console.log('Files dropped');
+  let dt = e.dataTransfer;
+  let files = dt.files;
+  handleFiles(files);
+}
+
+function handleChange(e) {
+  console.log('Files selected');
+  let files = e.target.files;
+  handleFiles(files);
+}
+
+function handleFiles(files) {
+  files = [...files];
+  files.forEach(previewFile);
+}
+
+function previewFile(file) {
+  console.log('Previewing file:', file);
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = function () {
+    let img = document.createElement('img');
+    img.src = reader.result;
+    let div = document.createElement('div');
+    div.classList.add('image-container');
+    div.innerHTML = `<img src="${reader.result}" title="${file.name}"><br><span>${file.name}</span> <span class="delete-img" onclick="removeImage(this)"><i class="bi bi-trash" style="color: red;"></i></span>`;
+    document.getElementById('gallery').appendChild(div);
+  }
+}
+
+function removeImage(element) {
+  let div = element.parentNode;
+  div.parentNode.removeChild(div);
+}
+
+// Unified form submission using jQuery
+$(document).ready(function () {
+  $('#product-form').submit(function (event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+    let files = document.getElementById('fileElem').files;
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files);
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: '/addproduct',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        $('#product-message').removeClass('error-box').addClass('success-box').text(response.message);
+        setTimeout(function () {
+          window.location.href = '/showproduct';
+        }, 2000);
+      },
+      error: function (xhr, status, error) {
+        $('#product-message').removeClass('success-box').addClass('error-box').text(xhr.responseJSON.error);
+      }
+    });
+  });
+});
+
+        </script>
+        
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Add Sub-SubCategory</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 7 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .success-box {
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+      color: #3c763d;
+    }
+
+    .error-box {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+
+    .message-box {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    .subcat {
+
+      margin-left: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('./header.ejs') %>
+    <%- include('./sidebar.ejs') %>
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Sub-SubCategory</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">Add Sub-SubCategory</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+        <div>
+        </div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div id="subcat" class="message-box"></div>
+                  <h5 class="card-title">Add Sub-SubCategory</h5>
+                  <form class="row g-3 needs-validation" novalidate action="/addsub_subcategory"
+                    id="addsub_subcategory">
+
+                    <div class="col-12">
+                      <label for="stores" class="form-label">Stores:</label>
+                      <% stores.forEach((store, index)=> { %>
+                        <div class="form-check">
+                          <input class="form-check-input store-checkbox" type="checkbox" name="storeId[]"
+                            value="<%= store.id %>" id="store<%= index %>">
+                          <label class="form-check-label" for="store<%= index %>">
+                            <%= store.store_name %>
+                          </label>
+                          <div class="col-12" id="categories<%= store.id %>">
+
+                          </div>
+                          <div class="col-12 subcat" id="subcategories<%= store.id %>">
+
+                          </div>
+                        </div>
+                        <% }); %>
+                    </div>
+
+
+                    <div class="col-12">
+                      <label for="inputName" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="inputName" name="Sub_SubCatName" required>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid name.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="inputDescription" class="form-label">Description</label>
+                      <textarea class="form-control" id="inputDescription" name="Sub_SubCatDescription"
+                        required></textarea>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid description.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="inputPageTitle" class="form-label">Page Title</label>
+                      <input type="text" class="form-control" id="inputPageTitle" name="Sub_SubCatPageTitle" required>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid page title.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="inputMetaKeywords" class="form-label">Meta Keywords</label>
+                      <input type="text" class="form-control" id="inputMetaKeywords" name="Sub_SubCatMetaKeywords"
+                        required>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter valid meta keywords.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="inputMetaDescription" class="form-label">Meta Description</label>
+                      <textarea class="form-control" id="inputMetaDescription" name="Sub_SubCatMetaDescription"
+                        required></textarea>
+                      <div class="valid-feedback ">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                        Please enter a valid meta description.
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main><!-- End #main -->
+      <!-- ======= Footer ======= -->
+      <%- include('./footer.ejs') %>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+        <!-- Vendor JS Files -->
+        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/vendor/chart.js/chart.umd.js"></script>
+        <script src="assets/vendor/echarts/echarts.min.js"></script>
+        <script src="assets/vendor/quill/quill.min.js"></script>
+        <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+        <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+        <script src="assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="assets/js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const storeCheckboxes = document.querySelectorAll('.store-checkbox');
+            storeCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener('change', function () {
+                const selectedStoreIds = [];
+                storeCheckboxes.forEach(function (cb) {
+                  if (cb.checked) {
+                    selectedStoreIds.push(cb.value);
+                  }
+                });
+
+                if (selectedStoreIds.length > 0) {
+                  $.ajax({
+                    type: 'GET',
+                    url: '/addsub_subcategory',
+                    data: { storeIds: selectedStoreIds },
+                    success: function (response) {
+                      console.log('Response from server:', response);
+                      updateCategories(response.categories, selectedStoreIds);
+                      updateSubCategories(response.subcategories, selectedStoreIds);
+                    },
+                    error: function (xhr, status, error) {
+                      console.error('Error sending request:', error);
+                    }
+                  });
+                } else {
+
+                  clearCategoriesAndSubCategories();
+                }
+              });
+            });
+          });
+
+          function updateCategories(categories, selectedStoreIds) {
+            selectedStoreIds.forEach(storeId => {
+              const categoriesDiv = document.querySelector(`#categories${storeId}`);
+              categoriesDiv.innerHTML = '';
+
+              categories.forEach(category => {
+                // console.log("strid:",storeId);
+                // console.log("category:",category);
+                // console.log("category.strid:",category.storeId);
+                const storeIdsArray = category.storeId.split(',').map(id => id.trim()); // Split and trim the store IDs
+                if (storeIdsArray.includes(storeId)) {
+                  const input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.name = 'catId[]';
+                  input.value = category.id;
+                  input.id = `category${category.id}`;
+
+                  const label = document.createElement('label');
+                  label.htmlFor = `category${category.id}`;
+                  label.textContent = category.Name;
+
+                  const div = document.createElement('div');
+                  div.className = 'form-check';
+                  div.appendChild(input);
+                  div.appendChild(label);
+
+                  categoriesDiv.appendChild(div);
+                }
+              });
+            });
+          }
+
+          function updateSubCategories(subcategories, selectedStoreIds) {
+            selectedStoreIds.forEach(storeId => {
+              const subcategoriesDiv = document.querySelector(`#subcategories${storeId}`);
+              subcategoriesDiv.innerHTML = '';
+
+              subcategories.forEach(subcategory => {
+                const storeIdsArray = subcategory.storeId.split(',').map(id => id.trim()); // Split and trim the store IDs
+                if (storeIdsArray.includes(storeId)) {
+                  const input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.name = 'subcatId[]'; // Adjust if needed
+                  input.value = subcategory.id;
+                  input.id = `subcategory${subcategory.id}`;
+
+                  const label = document.createElement('label');
+                  label.htmlFor = `subcategory${subcategory.id}`;
+                  label.textContent = subcategory.SubCatName; // Corrected field name
+
+                  const div = document.createElement('div');
+                  div.className = 'form-check';
+                  div.appendChild(input);
+                  div.appendChild(label);
+
+                  subcategoriesDiv.appendChild(div);
+                }
+              });
+            });
+          }
+
+          function clearCategoriesAndSubCategories() {
+            const categoriesDiv = document.querySelectorAll('[id^=categories]');
+            const subcategoriesDiv = document.querySelectorAll('[id^=subcategories]');
+            categoriesDiv.forEach(div => div.innerHTML = '');
+            subcategoriesDiv.forEach(div => div.innerHTML = '');
+          }
+
+          $(document).ready(function () {
+            $('#addsub_subcategory').submit(function (event) {
+              event.preventDefault();
+              var formData = $(this).serialize();
+              $.ajax({
+                type: 'POST',
+                url: '/addsub_subcategory',
+                data: formData,
+                success: function (response) {
+                  $('#subcat').removeClass('error-box').addClass('success-box').text(response.message);
+                  setTimeout(function () {
+                    window.location.href = '/showsub_subcategory';
+                  }, 2000);
+                },
+                error: function (xhr) {
+                  $('#subcat').removeClass('success-box').addClass('error-box').text(xhr.responseJSON.error);
+                }
+              });
+            });
+          });
+        </script>
+
+</body>
+
+</html>
