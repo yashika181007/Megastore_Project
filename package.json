@@ -1,33 +1,11 @@
 {
-  "name": "adminpanel",
+  "name": "megastore",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "keywords": [],
-  "description": "",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "body": "^5.1.0",
-    "body-parser": "^1.20.2",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "express-mysql-session": "^2.1.8",
-    "express-session": "^1.18.0",
-    "fs": "^0.0.1-security",
-    "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.9.4",
-    "nodemon": "^3.1.0",
-    "parser": "^0.1.4",
-    "path": "^0.12.7",
-    "update": "^0.7.4",
-    "util": "^0.12.5",
-    "uuid": "^10.0.0"
-  }
+  "description": ""
 }

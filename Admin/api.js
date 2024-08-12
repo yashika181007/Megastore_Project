@@ -2,11 +2,12 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const util = require('util');
 
 const app = express();
-
+app.use(cors());
 app.use(session({
     secret: 'megastore',
     resave: false,
@@ -18,7 +19,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'megastores',
+    database: 'megastore',
     waitForConnections: true,
     connectionLimit: 10,
 });
@@ -248,5 +249,5 @@ app.get('/logout', (req, res) => {
     });
 });
 
-const port = 3000;
+const port = 3002;
 app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
